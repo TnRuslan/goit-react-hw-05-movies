@@ -1,5 +1,5 @@
+import { LinkList } from 'components/LinkList/LinkList';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -10,20 +10,9 @@ export const Home = () => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data.results);
         setTrendingMovies([...data.results]);
       });
   }, []);
 
-  return (
-    <ul>
-      {trendingMovies.map(movie => {
-        return (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        );
-      })}
-    </ul>
-  );
+  return <LinkList movies={trendingMovies} />;
 };

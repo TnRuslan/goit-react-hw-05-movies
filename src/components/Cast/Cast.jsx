@@ -11,7 +11,6 @@ export const Cast = () => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data.cast);
         setCast([...data.cast]);
       });
   }, [params.id]);
@@ -24,7 +23,11 @@ export const Cast = () => {
         return (
           <li key={cast.id}>
             <img
-              src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+              src={
+                cast.profile_path
+                  ? `https://image.tmdb.org/t/p/w500${cast.profile_path}`
+                  : 'https://via.placeholder.com/100x150.png?text=Profile'
+              }
               alt={cast.name}
               width="100"
             />

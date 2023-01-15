@@ -11,7 +11,6 @@ export const MovieDetails = () => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setMovie(data);
       });
   }, [movieId]);
@@ -19,6 +18,9 @@ export const MovieDetails = () => {
   return (
     movie && (
       <div>
+        <div>
+          <NavLink to="/">Go back</NavLink>
+        </div>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}

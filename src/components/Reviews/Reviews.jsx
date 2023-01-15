@@ -11,7 +11,6 @@ export const Reviews = () => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setReviews([...data.results]);
       });
   }, [params.id]);

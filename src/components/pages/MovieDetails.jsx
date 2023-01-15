@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { API } from '../../API';
 
 export const MovieDetails = () => {
   const movieId = useParams();
   const [movie, setMovie] = useState();
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId.id}?api_key=3ff904f01b180e8aa08fc9b52d5b2a33&language=en-US`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setMovie(data);
-      });
+    API.fetchByMovieId(movieId.id).then(data => {
+      setMovie(data);
+    });
   }, [movieId]);
 
   return (

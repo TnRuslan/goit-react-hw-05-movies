@@ -1,6 +1,7 @@
 import { LinkList } from 'components/LinkList/LinkList';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { API } from '../../API';
 
 export const Movies = () => {
   const [movieName, setMovieName] = useState('');
@@ -21,13 +22,9 @@ export const Movies = () => {
     if (!searchName) {
       return;
     }
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=3ff904f01b180e8aa08fc9b52d5b2a33&language=en-US&query=${searchName}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setMovies([...data.results]);
-      });
+    API.fetchByMovieName(searchName).then(data => {
+      setMovies([...data.results]);
+    });
   }, [searchName]);
 
   return (

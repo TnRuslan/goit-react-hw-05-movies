@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { API } from '../../API';
 
 export const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const params = useParams();
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${params.id}/reviews?api_key=3ff904f01b180e8aa08fc9b52d5b2a33&language=en-US&page=1`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setReviews([...data.results]);
-      });
+    API.fetchMovieReviews(params.id).then(data => {
+      setReviews([...data.results]);
+    });
   }, [params.id]);
 
   return reviews.length === 0 ? (

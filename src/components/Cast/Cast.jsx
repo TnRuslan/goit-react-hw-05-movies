@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { API } from '../../API';
 
 export const Cast = () => {
   const [cast, setCast] = useState([]);
   const params = useParams();
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=3ff904f01b180e8aa08fc9b52d5b2a33&language=en-US`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setCast([...data.cast]);
-      });
+    API.fetchMovieCast(params.id).then(data => {
+      setCast([...data.cast]);
+    });
   }, [params.id]);
 
   return cast.length === 0 ? (

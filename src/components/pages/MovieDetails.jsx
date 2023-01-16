@@ -35,7 +35,6 @@ const MovieDetails = () => {
   const movieId = useParams();
   const [movie, setMovie] = useState();
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     API.fetchByMovieId(movieId.id).then(data => {
@@ -75,12 +74,12 @@ const MovieDetails = () => {
           <h3 className={css.subtitle}>Additional information: </h3>
           <ul className={css.link_list}>
             <li>
-              <StyledLink to="reviews" state={{ from: location }}>
+              <StyledLink to="reviews" state={location.state}>
                 Reviews
               </StyledLink>
             </li>
             <li>
-              <StyledLink to="cast" state={{ from: location }}>
+              <StyledLink to="cast" state={location.state}>
                 Cast
               </StyledLink>
             </li>

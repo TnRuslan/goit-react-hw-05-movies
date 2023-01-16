@@ -2,7 +2,7 @@ import { LinkList } from 'components/LinkList/LinkList';
 import { useState, useEffect } from 'react';
 import { API } from '../../API';
 
-export const Home = () => {
+const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
@@ -13,3 +13,5 @@ export const Home = () => {
 
   return <LinkList movies={trendingMovies} />;
 };
+
+export default Home;

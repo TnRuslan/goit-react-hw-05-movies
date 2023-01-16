@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { API } from '../../API';
+import css from './Reviews.module.css';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const params = useParams();
 
@@ -15,10 +16,10 @@ export const Reviews = () => {
   return reviews.length === 0 ? (
     <p>We don`t have any reviews for this movie</p>
   ) : (
-    <ul>
+    <ul className={css.reviews_list}>
       {reviews.map(review => {
         return (
-          <li key={review.id}>
+          <li className={css.reviews_item} key={review.id}>
             <h3>Author: {review.author}</h3>
             <p>{review.content}</p>
           </li>
@@ -27,3 +28,5 @@ export const Reviews = () => {
     </ul>
   );
 };
+
+export default Reviews;

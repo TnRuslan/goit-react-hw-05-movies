@@ -1,0 +1,11 @@
+.cast_list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cast_item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

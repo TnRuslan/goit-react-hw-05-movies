@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { API } from '../../API';
+import css from './Cast.module.css';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState([]);
   const params = useParams();
 
@@ -15,10 +16,10 @@ export const Cast = () => {
   return cast.length === 0 ? (
     <p>We don`t have any cast</p>
   ) : (
-    <ul>
+    <ul className={css.cast_list}>
       {cast.map(cast => {
         return (
-          <li key={cast.id}>
+          <li className={css.cast_item} key={cast.id}>
             <img
               src={
                 cast.profile_path
@@ -29,9 +30,12 @@ export const Cast = () => {
               width="100"
             />
             <h3>{cast.name}</h3>
+            <p>Character: {cast.character ?? ''}</p>
           </li>
         );
       })}
     </ul>
   );
 };
+
+export default Cast;

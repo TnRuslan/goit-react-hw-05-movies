@@ -1,12 +1,14 @@
 import { LinkList } from 'components/LinkList/LinkList';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { API } from '../../API';
+import css from './Movies.module.css';
 
-export const Movies = () => {
+const Movies = () => {
   const [movieName, setMovieName] = useState('');
-  const [searchName, setSearchName] = useState('');
   const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchNameByParams = searchParams.get('movie') ?? '';
 
   const onInputChange = e => {
     setMovieName(e.target.value);
@@ -14,23 +16,25 @@ export const Movies = () => {
 
   const onSubmitForm = e => {
     e.preventDefault();
-    setSearchName(movieName);
+    setSearchParams({ movie: movieName });
     setMovieName('');
   };
 
   useEffect(() => {
-    if (!searchName) {
+    if (!searchNameByParams) {
+      setMovies([]);
       return;
     }
-    API.fetchByMovieName(searchName).then(data => {
+    API.fetchByMovieName(searchNameByParams).then(data => {
       setMovies([...data.results]);
     });
-  }, [searchName]);
+  }, [searchNameByParams]);
 
   return (
     <div>
-      <form onSubmit={onSubmitForm}>
+      <form className={css.form} onSubmit={onSubmitForm}>
         <input
+          className={css.input}
           name="searchInput"
           type="text"
           autoComplete="off"
@@ -39,10 +43,14 @@ export const Movies = () => {
           value={movieName}
           onChange={onInputChange}
         />
-        <button type="submit">Search</button>
+        <button className={css.search_btn} type="submit">
+          Search
+        </button>
       </form>
 
       <LinkList movies={movies} />
     </div>
   );
 };
+
+export default Movies;
